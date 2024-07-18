@@ -36,6 +36,6 @@ public abstract class Animal implements IAnimal, ILocatable {
     @Override
     public ILocatable getLocation() {
         return this.location;
-    }
+     }
 
 }

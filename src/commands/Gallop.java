@@ -3,7 +3,7 @@ package commands;
 import animals.Animal;
 
 public class Gallop extends Command {
-    Gallop(Animal animal){
+    public Gallop(Animal animal){
         this.animal=animal;
     }
 

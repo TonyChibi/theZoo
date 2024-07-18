@@ -4,7 +4,7 @@ import animals.Animal;
 
 public class Load extends Command {
     Integer weight= 0;
-    Load(Animal animal){
+    public Load(Animal animal){
         this.animal = animal;
     }
 
