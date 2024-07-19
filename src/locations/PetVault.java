@@ -4,12 +4,12 @@ import interfaces.ILocatable;
 
 public class PetVault extends Location{
 
-    PetVault(Location location){
+    public PetVault(ILocatable location){
         this.location = location;
     }
     @Override
     public void setLocation(ILocatable location) {
-
+        this.location=location;
     }
 
     @Override

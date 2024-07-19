@@ -1,4 +1,4 @@
 package animals;
 
-public class Owl {
+public class Owl extends Pets{
 }

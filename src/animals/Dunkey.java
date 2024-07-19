@@ -1,4 +1,4 @@
 package animals;
 
-public class Dunkey {
+public class Dunkey extends Packs{
 }

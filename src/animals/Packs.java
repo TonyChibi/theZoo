@@ -1,4 +1,8 @@
 package animals;
 
-public class Packs extends Animal{
+import interfaces.ILocatable;
+import locations.PacksVault;
+
+public abstract class Packs extends Animal{
+
 }

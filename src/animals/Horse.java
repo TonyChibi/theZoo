@@ -1,4 +1,4 @@
 package animals;
 
-public class Horse {
+public class Horse extends Packs{
 }

@@ -1,5 +1,5 @@
 package animals;
 
-public class Giraffe {
+public class Giraffe extends Packs{
 }
 
