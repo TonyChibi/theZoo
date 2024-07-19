@@ -9,7 +9,9 @@ public class Main {
 //        or not
 //        zoo location is user
 
-
+//*ToDo
+//        animal creator needs filling
+//        animals needs creators
 
     }
 }

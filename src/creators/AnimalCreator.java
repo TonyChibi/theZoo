@@ -1,9 +1,7 @@
 package creators;
 
-import animals.Animal;
-import animals.Cat;
-import animals.Cow;
 import interfaces.ILocatable;
+import animals.*;
 
 
 import java.util.HashMap;
@@ -19,6 +17,12 @@ public class AnimalCreator {
                 break;
             case "cow":
                 animal =new Cow();
+                break;
+            case "crocodile":
+                animal = new Crocodile();
+                break;
+            case "dog":
+                animal = new Dog();
                 break;
         }
         HashMap preCommands = new HashMap<>();
