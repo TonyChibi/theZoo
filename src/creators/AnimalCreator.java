@@ -16,13 +16,25 @@ public class AnimalCreator {
                 animal = new Cat(name, location);
                 break;
             case "cow":
-                animal =new Cow();
+                animal =new Cow(name, location);
                 break;
             case "crocodile":
-                animal = new Crocodile();
+                animal = new Crocodile(name, location);
                 break;
             case "dog":
-                animal = new Dog();
+                animal = new Dog(name, location);
+                break;
+            case "dunkey":
+                animal = new Dunkey(name, location);
+                break;
+            case "giraffe":
+                animal = new Giraffe(name, location);
+                break;
+            case "horse":
+                animal = new Horse(name, location);
+                break;
+            case "owl":
+                animal = new Owl(name, location);
                 break;
         }
         HashMap preCommands = new HashMap<>();
