@@ -3,10 +3,14 @@ package animals;
 import commands.Command;
 import interfaces.IAnimal;
 import interfaces.ILocatable;
+import interfaces.IOptional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
-public abstract class Animal implements IAnimal, ILocatable {
+
+public abstract class Animal implements IAnimal, ILocatable, IOptional<Set<String>> {
     public String name;
     public Integer weight;
 
@@ -38,4 +42,13 @@ public abstract class Animal implements IAnimal, ILocatable {
         return this.location;
      }
 
+    @Override
+    public void setOptions() {
+
+    }
+
+    @Override
+    public ArrayList<String> getOptions() {
+        return (ArrayList<String>) this.commands.keySet();
+    }
 }

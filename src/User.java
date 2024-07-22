@@ -1,11 +1,10 @@
 import interfaces.ILocatable;
 import interfaces.IOptional;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
-public class User implements IOptional<String, Function<String,String>>, ILocatable {
+public class User implements IOptional, ILocatable {
     ILocatable location;
     HashMap<String, Function<String,String>> options= new HashMap<String, Function<String, String>>();
     @Override
@@ -18,13 +17,13 @@ public class User implements IOptional<String, Function<String,String>>, ILocata
         return this.location;
     }
 
-     @Override
-    public void setOptions(Map<String, Function<String,String>> options) {
-        this.options.putAll(options);
+    @Override
+    public void setOptions() {
+
     }
 
     @Override
-    public Map getOptions() {
-        return this.options;
+    public ArrayList getOptions() {
+        return (ArrayList) this.options.keySet();
     }
 }

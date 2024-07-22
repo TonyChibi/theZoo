@@ -10,8 +10,8 @@ public class Main {
 //        zoo location is user
 
 //*ToDo
-//        animal creator needs filling
-//        animals needs creators
+//        complete animal's options
+//        need to sort out options
 
     }
 }
