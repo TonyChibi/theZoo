@@ -7,7 +7,7 @@ import locations.PetVault;
 import locations.Zoo;
 
 public class LocationCreator {
-    public ILocatable create(String type, ILocatable locatable){
+    public Location create(String type, ILocatable locatable){
         Location location= null;
         switch (type){
             case "zoo":
