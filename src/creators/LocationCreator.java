@@ -1,10 +1,7 @@
 package creators;
 
 import interfaces.ILocatable;
-import locations.Location;
-import locations.PacksVault;
-import locations.PetVault;
-import locations.Zoo;
+import locations.*;
 
 public class LocationCreator {
     public Location create(String type, ILocatable locatable){
@@ -13,11 +10,8 @@ public class LocationCreator {
             case "zoo":
                 location=new Zoo(locatable);
                 break;
-            case "petvault":
-                location = new PetVault(locatable);
-                break;
-            case "packvault":
-                location = new PacksVault(locatable);
+            case "vault":
+                location = new Vault(locatable);
                 break;
         }
         return location;

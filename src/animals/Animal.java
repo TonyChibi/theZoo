@@ -10,13 +10,13 @@ import java.util.HashMap;
 import java.util.Set;
 
 
-public abstract class Animal implements IAnimal, ILocatable, IOptional<Set<String>> {
+public abstract class Animal implements IAnimal, ILocatable, IOptional{
     public String name;
     public Integer weight;
 
     public ILocatable location;
 
-    public HashMap <String, Command> commands;
+    public HashMap <String, Command> commands = new HashMap<>();
     @Override
     public Object execute(String command, Object obj) {
         return this.commands.get(command).response(obj);

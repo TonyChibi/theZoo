@@ -37,12 +37,14 @@ public class AnimalCreator {
                 animal = new Owl(name, location);
                 break;
         }
-        HashMap preCommands = new HashMap<>();
-        for (String item: commands){
-                preCommands.put(item, CmCreator.create(item,animal));
-        }
-        animal.commands.putAll(preCommands);
-        return animal;
+        if (commands!=null) {
+            HashMap preCommands = new HashMap<>();
+            for (String item : commands) {
+                preCommands.put(item, CmCreator.create(item, animal));
+            }
+            animal.commands.putAll(preCommands);
 
+        }
+        return animal;
     }
 }
