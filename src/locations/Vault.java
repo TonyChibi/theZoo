@@ -6,7 +6,6 @@ import interfaces.ILocatable;
 import java.util.ArrayList;
 
 public class Vault extends Location{
-    ArrayList options = new ArrayList<>();
 
     ArrayList <Animal> animals = new ArrayList<>();
     public Vault(ILocatable location){
@@ -26,12 +25,12 @@ public class Vault extends Location{
 
     @Override
     public void setOptions() {
-            this.options.addAll(this.animals);
+
     }
 
     @Override
     public ArrayList getOptions() {
-        return this.options;
+        return this.animals;
     }
 
     public void setAnimals(ArrayList<Animal> animals){
