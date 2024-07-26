@@ -30,5 +30,8 @@ public class Main {
         System.out.println(pets.getLocation());
         System.out.println(cat.getLocation());
         System.out.println(cat.getType());
+
+
+
     }
 }
