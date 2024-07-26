@@ -4,9 +4,15 @@ import interfaces.IOptional;
 import java.util.*;
 import java.util.function.Function;
 
-public class User implements IOptional, ILocatable {
+public class User implements ILocatable {
+    public String name;
+    public String password;
     ILocatable location;
-    HashMap<String, Function<String,String>> options= new HashMap<String, Function<String, String>>();
+
+    User(String name, String password){
+        this.name = name;
+        this.password = password;
+    }
     @Override
     public void setLocation(ILocatable location) {
         this.location= location;
@@ -17,13 +23,5 @@ public class User implements IOptional, ILocatable {
         return this.location;
     }
 
-    @Override
-    public void setOptions() {
 
-    }
-
-    @Override
-    public ArrayList getOptions() {
-        return (ArrayList) this.options.keySet();
-    }
 }

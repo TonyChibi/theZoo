@@ -17,6 +17,9 @@ public abstract class Animal implements IAnimal, ILocatable, IOptional{
     public ILocatable location;
 
     public HashMap <String, Command> commands = new HashMap<>();
+
+    public abstract String getType();
+
     @Override
     public Object execute(String command, Object obj) {
         return this.commands.get(command).response(obj);
