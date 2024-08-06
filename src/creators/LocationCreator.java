@@ -8,7 +8,7 @@ public class LocationCreator {
         Location location= null;
         switch (type){
             case "zoo":
-                location=new Zoo(locatable);
+                location= new Zoo(locatable);
                 break;
             case "vault":
                 location = new Vault(locatable);

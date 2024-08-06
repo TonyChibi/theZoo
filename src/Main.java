@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.function.Function;
 
@@ -5,6 +6,7 @@ import animals.Animal;
 import commands.*;
 import creators.Creator;
 import locations.Location;
+import locations.Vault;
 import locations.Zoo;
 import java.sql.*;
 public class Main {
@@ -21,10 +23,13 @@ public class Main {
 
 
         Creator creator= new Creator();
-        Location zoo = new Zoo(null);
-        Location zoo1 = creator.create("zoo", creator.create("zoo",zoo));
-        Location pets = creator.create("vault", zoo1);
+        Zoo zoo = new Zoo(null);
+        Zoo zoo1 = (Zoo)creator.create("zoo", creator.create("zoo",zoo));
+        Vault pets = (Vault)creator.create("vault", zoo1);
         Animal cat = creator.create("dog", "cat", pets,null);
+        Animal dog = creator.create("cat", "dog", pets, null);
+        pets.animals.addAll(Arrays.asList(cat,dog));
+        System.out.println(pets.animals);
         System.out.println(zoo.getLocation());
         System.out.println(zoo1.getLocation());
         System.out.println(pets.getLocation());

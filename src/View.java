@@ -14,7 +14,7 @@ public class View {
     public String insertString(String insertion){
         Scanner in = new Scanner(System.in);
         System.out.printf("Insert the %s : ", insertion);
-        return   in.nextLine();
+        return  in.nextLine();
     }
 
 
