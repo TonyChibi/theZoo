@@ -20,7 +20,7 @@ public class Main {
 //        zoo will be main character, and for a DB also
 //        need to sort out options, at least at zoo
 //        get zoo to deal with DB
-
+//         mysql pullAnimal not finished. the DB needs improvements
 
         Creator creator= new Creator();
         Zoo zoo = new Zoo(null);

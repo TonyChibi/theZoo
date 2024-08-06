@@ -1,10 +1,10 @@
 import animals.Animal;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+
+import static java.util.Map.entry;
+
 
 public class MySQL {
     private static String url;
@@ -22,6 +22,26 @@ public class MySQL {
     public void setAnimal(Animal animal){
 
     }
+    public HashMap getAnimal(int animID){
+        Map types = Map.ofEntries(
+                entry(1,"pets"),
+                entry(2,"packs")
+        );
+        HashMap animal = new HashMap<>();
+        try(Connection con = DriverManager.getConnection(this.url, this.user, this.password)){
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from animals where id = "+animID);
+            animal.put("name",rs.getString("name"));
+            animal.put("type",types.get(rs.getInt("type_id")));
+            animal.put("id",rs.getInt("id"));
+            animal.put("commands",getCommands(animID));
+            animal.put("kind", rs.getString("kind"));
+        }catch (SQLException e){
+            System.out.println(e.getErrorCode()+"\n"+e.getMessage());
+        }
+
+        return animal;
+    }
     public void updateAnimal(Animal animal){
 
     }
@@ -31,7 +51,7 @@ public class MySQL {
 
         try(Connection con = DriverManager.getConnection(this.url, this.user, this.password)) {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from commands_set where animal_id = id");
+            ResultSet rs = st.executeQuery("select * from commands_set where animal_id = "+animID);
             for (String cmd: commands
                  ) {
                 if(rs.getByte(cmd)!=0){
@@ -42,7 +62,6 @@ public class MySQL {
         }catch (SQLException e){
             System.out.println(e.getErrorCode()+"\n"+e.getMessage());
         }
-
 
         return cmdSet;
     }
