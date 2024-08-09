@@ -55,7 +55,7 @@ public class Controller {
 
     public Animal pullAnimal(){
 
-        return creator.create();
+        return null;
     }
 
 

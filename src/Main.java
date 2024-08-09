@@ -35,8 +35,10 @@ public class Main {
         System.out.println(pets.getLocation());
         System.out.println(cat.getLocation());
         System.out.println(cat.getType());
+        MySQL mySQL = new MySQL("jdbc:mysql://localhost:3306/zoo", "root", "glaz");
+        HashMap animal = mySQL.getAnimal(1);
+        System.out.println(animal);
 
-
-
+//        jdbc:mysql://localhost:3306/?user=root
     }
 }

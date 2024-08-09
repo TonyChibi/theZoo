@@ -31,13 +31,14 @@ public class MySQL {
         try(Connection con = DriverManager.getConnection(this.url, this.user, this.password)){
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("select * from animals where id = "+animID);
-            animal.put("name",rs.getString("name"));
-            animal.put("type",types.get(rs.getInt("type_id")));
+            rs.next();
+            animal.put("name",rs.getString("animal_name"));
+            animal.put("type",types.get(rs.getInt("animal_type_id")));
             animal.put("id",rs.getInt("id"));
             animal.put("commands",getCommands(animID));
             animal.put("kind", rs.getString("kind"));
         }catch (SQLException e){
-            System.out.println(e.getErrorCode()+"\n"+e.getMessage());
+            System.out.println("MYSQL ERROR: "+e.getErrorCode()+"\n"+e.getSQLState()+"\t"+e.getMessage());
         }
 
         return animal;
@@ -51,7 +52,8 @@ public class MySQL {
 
         try(Connection con = DriverManager.getConnection(this.url, this.user, this.password)) {
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from commands_set where animal_id = "+animID);
+            ResultSet rs = st.executeQuery("select * from commands_sets where animal_id = "+animID);
+            rs.next();
             for (String cmd: commands
                  ) {
                 if(rs.getByte(cmd)!=0){
@@ -60,7 +62,7 @@ public class MySQL {
             }
 
         }catch (SQLException e){
-            System.out.println(e.getErrorCode()+"\n"+e.getMessage());
+            System.out.println("MYSQL ERROR: "+e.getErrorCode()+"\n"+e.getSQLState()+"\t"+e.getMessage());
         }
 
         return cmdSet;
