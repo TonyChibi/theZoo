@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.function.Function;
@@ -17,10 +18,11 @@ public class Main {
 //        zoo location is user
 
 //*ToDo
-//        zoo will be main character, and for a DB also
+//        zoo will be main character, and for a DB also ?
 //        need to sort out options, at least at zoo
 //        get zoo to deal with DB
 //         mysql pullAnimal not finished. the DB needs improvements
+
 
         Creator creator= new Creator();
         Zoo zoo = new Zoo(null);
@@ -36,9 +38,18 @@ public class Main {
         System.out.println(cat.getLocation());
         System.out.println(cat.getType());
         MySQL mySQL = new MySQL("jdbc:mysql://localhost:3306/zoo", "root", "glaz");
-        HashMap animal = mySQL.getAnimal(1);
-        System.out.println(animal);
 
+        ResultSet query = mySQL.select("*","animals", "");
+        System.out.println(query);
+        try {
+          query.next();
+            System.out.println(query.getMetaData().getColumnCount());
+
+        }catch (Exception e){
+            System.out.println("next error\t:"+e.getMessage());
+        }
+        ArrayList animal = mySQL.getAnimals("");
+        System.out.println(animal);
 //        jdbc:mysql://localhost:3306/?user=root
     }
 }

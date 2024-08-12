@@ -37,7 +37,7 @@ public class Controller {
     public void newAnimal(String name, String type, Location location, String[]commands){
         creator.create(name, type, location, commands);
     }
-    public void fillZoo(){
+    public void fillZoo(Zoo zoo){
 
     }
     public void updateZoo(){

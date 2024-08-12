@@ -19,29 +19,31 @@ public class MySQL {
     }
 
 
-    public void setAnimal(Animal animal){
+    public void setAnimals(Animal animal){
 
     }
-    public HashMap getAnimal(int animID){
+    public ArrayList<HashMap> getAnimals(String conditions){
         Map types = Map.ofEntries(
                 entry(1,"pets"),
                 entry(2,"packs")
         );
-        HashMap animal = new HashMap<>();
-        try(Connection con = DriverManager.getConnection(this.url, this.user, this.password)){
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from animals where id = "+animID);
-            rs.next();
-            animal.put("name",rs.getString("animal_name"));
-            animal.put("type",types.get(rs.getInt("animal_type_id")));
-            animal.put("id",rs.getInt("id"));
-            animal.put("commands",getCommands(animID));
-            animal.put("kind", rs.getString("kind"));
+        ArrayList animals = new ArrayList<>();
+        try(ResultSet rs = select("*","animals",conditions)){
+            while (rs.next()) {
+                HashMap animal = new HashMap<>();
+                animal.put("name", rs.getString("animal_name"));
+                animal.put("type", types.get(rs.getInt("animal_type_id")));
+                animal.put("id", rs.getInt("id"));
+                animal.put("kind", rs.getString("kind"));
+                animal.put("commands", getCommands(rs.getInt("id")));
+                animals.add(animal);
+            }
+
         }catch (SQLException e){
             System.out.println("MYSQL ERROR: "+e.getErrorCode()+"\n"+e.getSQLState()+"\t"+e.getMessage());
         }
 
-        return animal;
+        return animals;
     }
     public void updateAnimal(Animal animal){
 
@@ -49,24 +51,36 @@ public class MySQL {
     public Collection getCommands(int animID){
 
         ArrayList cmdSet = new ArrayList<>();
-
-        try(Connection con = DriverManager.getConnection(this.url, this.user, this.password)) {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from commands_sets where animal_id = "+animID);
-            rs.next();
-            for (String cmd: commands
-                 ) {
-                if(rs.getByte(cmd)!=0){
-                    cmdSet.add(cmd);
+        try (ResultSet rs = select("*","commands_sets", "where animal_id = "+animID);){
+            while (rs.next()) {
+                for (String cmd : commands) {
+                    if (rs.getByte(cmd) != 0) {
+                        cmdSet.add(cmd);
+                    }
                 }
             }
 
-        }catch (SQLException e){
-            System.out.println("MYSQL ERROR: "+e.getErrorCode()+"\n"+e.getSQLState()+"\t"+e.getMessage());
+        }catch(SQLException e) {
+            System.out.println("MYSQL  getcommands ERROR: " + e.getErrorCode() + "\n" + e.getSQLState() + "\t" + e.getMessage());
         }
 
         return cmdSet;
     }
 
+    public ResultSet select(String columns, String table, String condition){
+        ResultSet rs = null;
+        try{
+            Connection con = DriverManager.getConnection(this.url, this.user, this.password);
+            Statement st = con.createStatement();
+            rs = st.executeQuery("select "+columns+" from " + table +"\t"+ condition);
+        }catch (SQLException e){
+            System.out.println("MYSQL select ERROR: "+e.getErrorCode()+"\n"+e.getSQLState()+"\t"+e.getMessage());
+        }
+        return rs;
+    }
+
+    public void insert(String table, String columns, String values){
+
+    }
     
 }
