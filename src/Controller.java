@@ -6,6 +6,7 @@ import locations.Zoo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Controller {
     View view = new View();
@@ -22,7 +23,9 @@ public class Controller {
         user.setLocation(zoo);
         Vault pets = (Vault) creator.create("vault", zoo);
         Vault packs = (Vault) creator.create("vault", zoo);
-        zoo.vaults.addAll(Arrays.asList(pets,packs));
+        zoo.vaults.put("pets", pets);
+        zoo.vaults.put("packs", packs);
+
 
         while (on){
 
@@ -34,10 +37,34 @@ public class Controller {
         String pswd=view.insertString("password");
         return new User(name, pswd);
     }
-    public void newAnimal(String name, String type, Location location, String[]commands){
+    public void newAnimal(String name, String type, Location location, ArrayList <String> commands){
         creator.create(name, type, location, commands);
     }
     public void fillZoo(Zoo zoo){
+        ArrayList <HashMap> animals = mysql.getAnimals("");
+        for (HashMap item: animals){
+            Animal animal;
+            switch ((String) item.get("type")){
+                case "pets":
+                    animal = creator.create(
+                            (String)item.get("name"),
+                            (String) item.get("type"),
+                            zoo.vaults.get("pets"),
+                            (ArrayList<String>)item.get("commands"));
+                    zoo.vaults.get("pets").animals.add(animal);
+                    break;
+                case "packs":
+                    animal = creator.create(
+                            (String)item.get("name"),
+                            (String) item.get("type"),
+                            zoo.vaults.get("packs"),
+                            (ArrayList<String>)item.get("commands"));
+                    zoo.vaults.get("packs").animals.add(animal);
+                    break;
+            }
+
+        }
+
 
     }
     public void updateZoo(){

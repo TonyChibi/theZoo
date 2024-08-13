@@ -4,12 +4,13 @@ import interfaces.ILocatable;
 import animals.*;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
 public class AnimalCreator {
     CommandCreator CmCreator = new CommandCreator();
-    public Animal create(String name, String type, ILocatable location, String[] commands){
+    public Animal create(String name, String type, ILocatable location, ArrayList<String> commands){
         Animal animal=null;
         switch (type){
             case "cat":

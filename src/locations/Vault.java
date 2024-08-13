@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Vault extends Location{
 
     public ArrayList <Animal> animals = new ArrayList<>();
-    public Vault(ILocatable location){
+    public Vault(ILocatable locationzz){
         this.location = location;
     }
 
