@@ -69,10 +69,11 @@ public class MySQL {
 
     public ResultSet select(String columns, String table, String condition){
         ResultSet rs = null;
+        String query ="select "+columns+" from " + table +"\t"+ condition;
         try{
             Connection con = DriverManager.getConnection(this.url, this.user, this.password);
             Statement st = con.createStatement();
-            rs = st.executeQuery("select "+columns+" from " + table +"\t"+ condition);
+            rs = st.executeQuery(query);
         }catch (SQLException e){
             System.out.println("MYSQL select ERROR: "+e.getErrorCode()+"\n"+e.getSQLState()+"\t"+e.getMessage());
         }
@@ -80,6 +81,24 @@ public class MySQL {
     }
 
     public void insert(String table, String columns, String values){
+        String query="insert into "+table+"\t("+columns+")\t values ("+values+");";
+            try(Connection con = DriverManager.getConnection(this.url,this.user, this.password)){
+                Statement st = con.createStatement();
+                st.executeUpdate(query);
+
+            }catch (SQLException e){
+                System.out.println("MYSQL insert ERROR: "+e.getErrorCode()+"\n"+e.getSQLState()+"\t"+e.getMessage());
+            }
+    }
+
+    public void delete(String table, String conditions){
+        String query = "delete from "+table+"\t where "+conditions;
+        try(Connection con = DriverManager.getConnection(this.url, this.user, this.password)){
+            Statement st = con.createStatement();
+            st.executeUpdate(query);
+        }catch(SQLException e){
+            System.out.println("MYSQL delete ERROR: "+e.getErrorCode()+"\n"+e.getSQLState()+"\t"+e.getMessage());
+        }
 
     }
     

@@ -48,7 +48,12 @@ public class Main {
         }catch (Exception e){
             System.out.println("next error\t:"+e.getMessage());
         }
+        mySQL.insert("animals","animal_name, animal_type_id, kind ", "'vasya', 1, 'rabbit'");
+
         ArrayList animal = mySQL.getAnimals("");
+        System.out.println(animal);
+        mySQL.delete("animals","animal_name = 'vasya'");
+        animal = mySQL.getAnimals("");
         System.out.println(animal);
 //        jdbc:mysql://localhost:3306/?user=root
     }
