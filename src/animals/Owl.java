@@ -6,5 +6,6 @@ public class Owl extends Pets{
     public Owl(String name, ILocatable location){
         this.name = name;
         this.location = location;
+        this.kind = "owl";
     }
 }

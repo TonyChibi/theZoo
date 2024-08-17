@@ -26,7 +26,7 @@ public class AnimalCreator {
                 animal = new Dog(name, location);
                 break;
             case "dunkey":
-                animal = new Dunkey(name, location);
+                animal = new Donkey(name, location);
                 break;
             case "giraffe":
                 animal = new Giraffe(name, location);

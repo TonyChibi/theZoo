@@ -17,6 +17,7 @@ public abstract class Animal implements IAnimal, ILocatable, IOptional{
     public ILocatable location;
 
     public HashMap <String, Command> commands = new HashMap<>();
+    public String kind;
 
     public abstract String getType();
 

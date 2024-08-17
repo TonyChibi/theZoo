@@ -6,5 +6,6 @@ public class Horse extends Packs{
     public Horse(String name, ILocatable location){
         this.name = name;
         this.location = location;
+        this.kind = "horse";
     }
 }

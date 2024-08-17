@@ -4,6 +4,7 @@ import locations.Location;
 import locations.Vault;
 import locations.Zoo;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,7 +14,7 @@ public class Controller {
     Creator creator=new Creator();
     MySQL mysql;
     User user;
-    public void start(){
+    public void start() throws Exception {
         Boolean on= true;
         user=greeting();
         String url = view.insertString("DB url: ");
@@ -40,7 +41,7 @@ public class Controller {
     public void newAnimal(String name, String type, Location location, ArrayList <String> commands){
         creator.create(name, type, location, commands);
     }
-    public void fillZoo(Zoo zoo){
+    public void fillZoo(Zoo zoo) throws SQLException{
         ArrayList <HashMap> animals = mysql.getAnimals("");
         for (HashMap item: animals){
             Animal animal;

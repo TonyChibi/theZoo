@@ -21,7 +21,8 @@ public class Main {
 //        zoo will be main character, and for a DB also ?
 //        need to sort out options, at least at zoo
 //        get zoo to deal with DB
-//         mysql pullAnimal not finished. the DB needs improvements
+//         mysql needs procefure for animal setting. and so pushAnimal at mysql
+
 
 
         Creator creator= new Creator();
@@ -29,6 +30,9 @@ public class Main {
         Zoo zoo1 = (Zoo)creator.create("zoo", creator.create("zoo",zoo));
         Vault pets = (Vault)creator.create("vault", zoo1);
         Animal cat = creator.create("dog", "cat", pets,null);
+        cat.learn("trot", new Trot(cat));
+        cat.learn("say", new Say(cat));
+        System.out.println(cat.commands);
         Animal dog = creator.create("cat", "dog", pets, null);
         pets.animals.addAll(Arrays.asList(cat,dog));
         System.out.println(pets.animals);
@@ -37,24 +41,31 @@ public class Main {
         System.out.println(pets.getLocation());
         System.out.println(cat.getLocation());
         System.out.println(cat.getType());
-        MySQL mySQL = new MySQL("jdbc:mysql://localhost:3306/zoo", "root", "glaz");
 
+
+        try {
+            MySQL mySQL = new MySQL("jdbc:mysql://localhost:3306/zoo", "root", "glaz");
         ResultSet query = mySQL.select("*","animals", "");
         System.out.println(query);
-        try {
+
           query.next();
             System.out.println(query.getMetaData().getColumnCount());
+            mySQL.insert("animals","animal_name, animal_type_id, animal_kind ", "'vasya', 1, 'rabbit'");
+            mySQL.postAnimals(new ArrayList<>(Arrays.asList(cat)));
+
+
+
+        ArrayList animal = mySQL.getAnimals("");
+        System.out.println(animal);
+        mySQL.delete("animals","animal_kind = 'rabbit'");
+        mySQL.delete("animals","animal_kind  = ' cat'");
+        mySQL.delete("commands_sets","animal_id is null");
+        animal = mySQL.getAnimals("");
+        System.out.println(animal);
 
         }catch (Exception e){
             System.out.println("next error\t:"+e.getMessage());
         }
-        mySQL.insert("animals","animal_name, animal_type_id, kind ", "'vasya', 1, 'rabbit'");
-
-        ArrayList animal = mySQL.getAnimals("");
-        System.out.println(animal);
-        mySQL.delete("animals","animal_name = 'vasya'");
-        animal = mySQL.getAnimals("");
-        System.out.println(animal);
 //        jdbc:mysql://localhost:3306/?user=root
     }
 }
