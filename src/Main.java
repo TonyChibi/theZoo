@@ -51,20 +51,25 @@ public class Main {
           query.next();
             System.out.println(query.getMetaData().getColumnCount());
             mySQL.insert("animals","animal_name, animal_type_id, animal_kind ", "'vasya', 1, 'rabbit'");
-            mySQL.postAnimals(new ArrayList<>(Arrays.asList(cat)));
+            mySQL.postAnimals(new ArrayList<>(Arrays.asList(dog, cat)));
+
 
 
 
         ArrayList animal = mySQL.getAnimals("");
         System.out.println(animal);
+
+//        mySQL.updateCommands("commands_sets","gallop","1","where animal_id > 100");
+
         mySQL.delete("animals","animal_kind = 'rabbit'");
-        mySQL.delete("animals","animal_kind  = ' cat'");
-        mySQL.delete("commands_sets","animal_id is null");
+        mySQL.delete("animals","animal_kind  = 'cat'");
+
         animal = mySQL.getAnimals("");
         System.out.println(animal);
 
+
         }catch (Exception e){
-            System.out.println("next error\t:"+e.getMessage());
+            System.out.println("next error\t:"+e.getMessage()+"\n"+e.toString()+"\n"+e.getClass());
         }
 //        jdbc:mysql://localhost:3306/?user=root
     }

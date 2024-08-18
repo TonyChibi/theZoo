@@ -68,20 +68,19 @@ public class MySQL {
 
     public void postAnimals(ArrayList <Animal> animals) throws SQLException{
         String animColumns = " animal_name, animal_type_id, animal_kind ";
-        for (Animal animal: animals){
+        for (Animal animal: animals) {
             int type = 1;
-            if (animal.getType().equals("packs") ) type=2;
-            String animValues = " '"+animal.name+" ' ,"+type+", '"+animal.kind+"'";
+            if (animal.getType().equals("packs")) type = 2;
+            String animValues = " '" + animal.name + "' ," + type + ", '" + animal.kind + "'";
             String commands = "";
-            String cmdValues="";
-            for (String key: animal.commands.keySet()
-                 ) {
-                    commands+= ","+key;
-                    cmdValues+=",1";
+            String cmdValues = "";
+            if (!animal.commands.isEmpty()) {
+                for (String key : animal.commands.keySet()
+                ) {
+                    commands += key + ", ";
+                    cmdValues += "1, ";
+                }
             }
-            commands = commands.replaceFirst(",","");
-            cmdValues = cmdValues.substring(1);
-
                 con.setAutoCommit(false);
                 Savepoint svpnt= con.setSavepoint("save_point");
             try {
@@ -89,18 +88,19 @@ public class MySQL {
                     insert("animals", animColumns,animValues);
 
                     Statement st = con.createStatement();
+                System.out.println(animal.name);
                     ResultSet rs = st.executeQuery("select last_insert_id();");
+                    System.out.println(rs);
                     rs.next();
                     int id = rs.getInt(1);
                     System.out.println(id);
-                    commands+=", animal_id";
-                    cmdValues+=","+id;
+                    commands+="animal_id";
+                    cmdValues+=id;
 
                     insert("commands_sets",commands,cmdValues);
                     System.out.println(svpnt);
 
-                    con.commit();
-                    con.setAutoCommit(true);
+
                 }catch (SQLException e){
                     con.rollback(svpnt);
                     con.setAutoCommit(true);
@@ -109,6 +109,8 @@ public class MySQL {
 //                this.con.setAutoCommit(true);
 
         }
+        con.commit();
+        con.setAutoCommit(true);
     }
 
     public ResultSet select(String columns, String table, String condition) throws SQLException{
@@ -134,7 +136,13 @@ public class MySQL {
         String query = "delete from "+table+"\t where "+conditions;
         Statement st = con.createStatement();
         st.executeUpdate(query);
+    }
 
+    public void updateCommands(String table, String comand, String values, String conditions) throws SQLException{
+//        its wrong!!!!!!!!!!
+        String query= "update\t"+table+"\t set "+comand+"\t = "+values+"\t"+conditions+";";
+        Statement st = con.createStatement();
+        st.executeUpdate(query);
 
     }
     
