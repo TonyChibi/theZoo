@@ -10,9 +10,9 @@ import java.util.HashMap;
 
 public class AnimalCreator {
     CommandCreator CmCreator = new CommandCreator();
-    public Animal create(String name, String type, ILocatable location, ArrayList<String> commands){
+    public Animal create(String name, String kind, ILocatable location, ArrayList<String> commands){
         Animal animal=null;
-        switch (type){
+        switch (kind){
             case "cat":
                 animal = new Cat(name, location);
                 break;

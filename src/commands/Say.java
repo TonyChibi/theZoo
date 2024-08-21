@@ -12,7 +12,7 @@ public class Say extends Command{
 
     @Override
     public  Object response(Object obj) {
-        System.out.println( (String) obj);
+        System.out.println( this.animal.name +": "+(String) obj);
         return (String)obj;
     }
 

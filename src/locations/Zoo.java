@@ -10,12 +10,19 @@ import java.util.HashMap;
 
 public class Zoo extends Location {
 
-String name = "zoooooo";
+String name = "zoo";
     public HashMap<String,Vault> vaults;
-    public Zoo(ILocatable location){
+    public Zoo(ILocatable location, String name){
         this.location=location;
         this.vaults = new HashMap<>();
+        this.name = name;
     }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
     @Override
     public void setLocation(ILocatable location) {
         this.location = location;
@@ -34,5 +41,10 @@ String name = "zoooooo";
     @Override
     public ArrayList getOptions() {
         return null;
+    }
+
+    @Override
+    public String getInstance() {
+        return "zoo";
     }
 }

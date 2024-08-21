@@ -6,11 +6,14 @@ import interfaces.ILocatable;
 import interfaces.IOptional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
 
 
-public abstract class Animal implements IAnimal, ILocatable, IOptional{
+public abstract class Animal implements IAnimal, ILocatable{
+    public static int id=0;
+
     public String name;
     public Integer weight;
 
@@ -54,5 +57,15 @@ public abstract class Animal implements IAnimal, ILocatable, IOptional{
     @Override
     public ArrayList<String> getOptions() {
         return (ArrayList<String>) this.commands.keySet();
+    }
+
+    @Override
+    public String getInstance(){
+        return "animal";
+    }
+
+    @Override
+    public String getName(){
+        return this.name;
     }
 }

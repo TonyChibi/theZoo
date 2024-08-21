@@ -15,6 +15,8 @@ public class Creator {
     AnimalCreator ac = new AnimalCreator();
     LocationCreator lc = new LocationCreator();
 
+    CommandCreator cm =  new CommandCreator();
+
     /**
      * Creates an animal
      * @param name
@@ -29,14 +31,17 @@ public class Creator {
 
     /**
      * Creates an Location
-     * @param type
-     * @param locatable
+     * @param type of location zoo/vault
+     * @param locatable the location of this new location
      * @return Location
      */
-    public Location create(String type, ILocatable locatable){
-         return lc.create(type, locatable);
+    public Location create(String type, ILocatable locatable, String name){
+         return lc.create(type, locatable, name);
     }
 
+    public Command create(String cmd, Animal animal){
+        return cm.create(cmd, animal);
+    }
 
 
 }

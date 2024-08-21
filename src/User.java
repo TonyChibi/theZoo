@@ -13,6 +13,12 @@ public class User implements ILocatable {
         this.name = name;
         this.password = password;
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
     @Override
     public void setLocation(ILocatable location) {
         this.location= location;
@@ -24,4 +30,18 @@ public class User implements ILocatable {
     }
 
 
+    @Override
+    public void setOptions() {
+
+    }
+
+    @Override
+    public ArrayList getOptions() {
+        return null;
+    }
+
+    @Override
+    public String getInstance() {
+        return "user";
+    }
 }

@@ -47,9 +47,7 @@ public class MySQL {
 
         return animals;
     }
-    public void updateAnimal(Animal animal){
 
-    }
     public Collection getCommands(int animID) throws SQLException {
 
         ArrayList cmdSet = new ArrayList<>();
@@ -131,16 +129,21 @@ public class MySQL {
 
 
     }
-
+/**
+ * delete occurrences from DB
+ * @param table from which delete
+ * @param conditions on which delete
+ * the DB table animals has cascade restrict,
+ * so occurrence in commands_sets will delete automatically
+*/
     public void delete(String table, String conditions) throws SQLException{
         String query = "delete from "+table+"\t where "+conditions;
         Statement st = con.createStatement();
         st.executeUpdate(query);
     }
 
-    public void updateCommands(String table, String comand, String values, String conditions) throws SQLException{
-//        its wrong!!!!!!!!!!
-        String query= "update\t"+table+"\t set "+comand+"\t = "+values+"\t"+conditions+";";
+    public void updateCommand(String table, String command, String value, String conditions) throws SQLException{
+        String query= "update\t"+table+"\t set "+command+"\t = "+value+"\t"+conditions+";";
         Statement st = con.createStatement();
         st.executeUpdate(query);
 
