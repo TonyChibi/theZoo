@@ -10,32 +10,32 @@ import java.util.HashMap;
 
 public class AnimalCreator {
     CommandCreator CmCreator = new CommandCreator();
-    public Animal create(String name, String kind, ILocatable location, ArrayList<String> commands){
+    public Animal create(String name, String kind, ILocatable location,int id, ArrayList<String> commands){
         Animal animal=null;
         switch (kind){
             case "cat":
-                animal = new Cat(name, location);
+                animal = new Cat(name, location, id);
                 break;
             case "cow":
-                animal =new Cow(name, location);
+                animal =new Cow(name, location, id);
                 break;
             case "crocodile":
-                animal = new Crocodile(name, location);
+                animal = new Crocodile(name, location, id);
                 break;
             case "dog":
-                animal = new Dog(name, location);
+                animal = new Dog(name, location, id);
                 break;
             case "dunkey":
-                animal = new Donkey(name, location);
+                animal = new Donkey(name, location, id);
                 break;
             case "giraffe":
-                animal = new Giraffe(name, location);
+                animal = new Giraffe(name, location, id);
                 break;
             case "horse":
-                animal = new Horse(name, location);
+                animal = new Horse(name, location, id);
                 break;
             case "owl":
-                animal = new Owl(name, location);
+                animal = new Owl(name, location, id);
                 break;
         }
         if (commands!=null) {
@@ -48,4 +48,6 @@ public class AnimalCreator {
         }
         return animal;
     }
+
+
 }

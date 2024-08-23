@@ -12,7 +12,8 @@ import java.util.Set;
 
 
 public abstract class Animal implements IAnimal, ILocatable{
-    public static int id=0;
+    public static int idCounter=1;
+    public int id;
 
     public String name;
     public Integer weight;

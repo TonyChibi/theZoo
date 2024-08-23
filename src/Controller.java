@@ -23,7 +23,7 @@ public class Controller {
     Boolean on= true;
 
     Zoo zoo;
-    public void start() throws Exception {
+    public void start() throws SQLException {
 
         initialize();
         while (on){

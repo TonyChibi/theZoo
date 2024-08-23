@@ -20,13 +20,16 @@ public class Creator {
     /**
      * Creates an animal
      * @param name
-     * @param type
+     * @param kind
      * @param location
      * @param commands
      * @return Animal
      */
-    public Animal create(String name, String type, ILocatable location, ArrayList commands){
-        return ac.create(name, type, location, commands);
+    public Animal create(String name, String kind, ILocatable location, int id, ArrayList commands){
+        return ac.create(name, kind, location, id, commands);
+    }
+    public Animal create(String name, String kind, ILocatable location, ArrayList<String> commands){
+        return create(name, kind, location, Animal.idCounter, commands);
     }
 
     /**
