@@ -25,7 +25,7 @@ public class AnimalCreator {
             case "dog":
                 animal = new Dog(name, location, id);
                 break;
-            case "dunkey":
+            case "donkey":
                 animal = new Donkey(name, location, id);
                 break;
             case "giraffe":
@@ -46,6 +46,7 @@ public class AnimalCreator {
             animal.commands.putAll(preCommands);
 
         }
+        System.out.println(animal);
         return animal;
     }
 

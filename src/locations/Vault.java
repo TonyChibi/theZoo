@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class Vault extends Location{
 
-    public HashMap<String,Animal> animals = new HashMap<>();
+    public HashMap<Integer,Animal> animals = new HashMap<>();
     public Vault(ILocatable location, String name){
         this.location = location;
         this.name = name;
@@ -34,11 +34,17 @@ public class Vault extends Location{
 
     @Override
     public void setOptions() {
-        this.options.addAll(this.animals.keySet());
+        this.options=new ArrayList<>();
+        for(Animal animal: this.animals.values()){
+            this.options.add("id: "+animal.id+"\t"+animal.kind+"\t"+animal.name);
+        }
+        this.options.add("new animal");
+        this.options.add("back");
     }
 
     @Override
     public ArrayList getOptions() {
+        setOptions();
         return this.options;
     }
 

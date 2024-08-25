@@ -8,7 +8,7 @@ public class Giraffe extends Packs{
         this.location = location;
         this.kind = "giraffe";
         this.id=id;
-        Animal.idCounter++;
+        Animal.idCounter=id+1;
     }
 }
 

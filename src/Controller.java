@@ -29,15 +29,18 @@ public class Controller {
         while (on){
             view.showContext(user.location);
             view.showOptions(user.location.getOptions());
-            String answer = view.insertString("an option");
+            String answer;
             switch(user.location.getInstance()){
                 case "zoo":
+                    answer = view.insertString("an vault's name or else");
                     checkZooOptions(answer);
                     break;
                 case "vault":
+                    answer = view.insertString("an animal id or else");
                     checkVaultOptions(answer);
                     break;
                 case "animal":
+                    answer = view.insertString("an command or else");
                     checkAnimalOptions(answer);
                     break;
             }
@@ -53,6 +56,7 @@ public class Controller {
                 break;
             case "kill":
                 killAnimal((Animal) user.getLocation());
+                view.awaiting();
                 break;
             case "back":
                 user.location=user.location.getLocation();
@@ -62,40 +66,56 @@ public class Controller {
                 if(animal.commands.keySet().contains(answer)){
                     animal.execute(answer);
                 }else view.unknown(answer);
+                view.awaiting();
         }
-        view.awaiting();
+
     }
 
     public void killAnimal(Animal animal) throws SQLException{
         user.location = animal.getLocation();
         Vault vault= (Vault) user.getLocation();
         mysql.delete("animals", "id = "+animal.id);
-        vault.animals.remove(animal);
+        vault.animals.remove(animal.id);
+        view.dead(animal);
+
 
     }
-    public void teachAnimal(Animal animal){
-        String cmd =view.teach(animal);
-        animal.learn(cmd,creator.create(cmd,animal));
+    public void teachAnimal(Animal animal)throws SQLException{
+        String cmd = "";
+        ArrayList<String> cmds = view.allCommands;
+        cmds.removeAll(animal.commands.keySet());
+        while (!cmds.contains(cmd)) {
+            cmd = view.teach(animal, cmds);
+        }
+        animal.learn(cmd, creator.create(cmd, animal));
+        mysql.updateCommand(cmd, "1", "where animal_id = " + animal.id);
     }
 
-    public void createAnimal(ILocatable locatable){
+    public void createAnimal(ILocatable locatable) throws SQLException{
+        String kind="";
         switch (locatable.getName()){
             case "packs":
-                view.showOptions(view.packsAnimals);
+                while (!view.packsAnimals.contains(kind)) {
+                    view.showOptions(view.packsAnimals);
+                    kind = view.insertString("animal kind");
+                }
                 break;
             case "pets":
-                view.showOptions(view.petsAnimals);
+                while (!view.petsAnimals.contains(kind)) {
+                    view.showOptions(view.petsAnimals);
+                    kind = view.insertString("animal kind");
+                }
                 break;
         }
-        String kind=view.insertString("animal kind");
         String name = view.insertString("animal name");
         Animal animal = creator.create(name,kind,locatable,null);
         Vault vault=(Vault) locatable;
-        vault.animals.put(animal.name,animal);
+        vault.animals.put(animal.id,animal);
+        mysql.postAnimals(new ArrayList(Arrays.asList(animal)));
 
     }
 
-    public void checkVaultOptions(String answer){
+    public void checkVaultOptions(String answer)throws SQLException{
         switch (answer){
             case "new animal":
                 createAnimal(user.location);
@@ -105,9 +125,13 @@ public class Controller {
                 break;
             default:
                 Vault vault =(Vault) user.getLocation();
-                if(vault.animals.keySet().contains(answer)){
-                    user.location=vault.animals.get(answer);
-                }else view.unknown(answer);
+                if(vault.animals.keySet().contains(Integer.parseInt(answer))){
+                    user.location=vault.animals.get(Integer.parseInt(answer));
+                    view.awaiting();
+                }else {
+                    view.unknown(answer);
+                    view.awaiting();
+                }
         }
     }
     public void checkZooOptions(String answer){
@@ -147,24 +171,28 @@ public class Controller {
     }
     public void fillZoo(Zoo zoo) throws SQLException{
         ArrayList <HashMap> animals = mysql.getAnimals("");
+        System.out.println(animals.size());
         for (HashMap item: animals){
+            System.out.println(item.get("id"));
             Animal animal;
             switch ((String) item.get("type")){
                 case "pets":
                     animal = creator.create(
                             (String)item.get("name"),
-                            (String) item.get("type"),
+                            (String) item.get("animal_kind"),
                             zoo.vaults.get("pets"),
+                            (Integer) item.get("id"),
                             (ArrayList<String>)item.get("commands"));
-                    zoo.vaults.get("pets").animals.put(animal.kind,animal);
+                    zoo.vaults.get("pets").animals.put(animal.id,animal);
                     break;
                 case "packs":
                     animal = creator.create(
                             (String)item.get("name"),
-                            (String) item.get("type"),
+                            (String) item.get("animal_kind"),
                             zoo.vaults.get("packs"),
+                            (Integer) item.get("id"),
                             (ArrayList<String>)item.get("commands"));
-                    zoo.vaults.get("packs").animals.put(animal.kind,animal);
+                    zoo.vaults.get("packs").animals.put(animal.id,animal);
                     break;
             }
 

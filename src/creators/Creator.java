@@ -25,10 +25,12 @@ public class Creator {
      * @param commands
      * @return Animal
      */
-    public Animal create(String name, String kind, ILocatable location, int id, ArrayList commands){
+    public Animal create(String name, String kind, ILocatable location, Integer id, ArrayList commands){
+        System.out.println("creating with id = "+id);
         return ac.create(name, kind, location, id, commands);
     }
     public Animal create(String name, String kind, ILocatable location, ArrayList<String> commands){
+        System.out.println("creating without id");
         return create(name, kind, location, Animal.idCounter, commands);
     }
 

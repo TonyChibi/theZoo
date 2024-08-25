@@ -8,7 +8,7 @@ public class Cow extends Packs{
         this.location = location;
         this.kind = "cow";
         this.id = id;
-        Animal.idCounter++;
+        Animal.idCounter=id+1;
     }
 
 }

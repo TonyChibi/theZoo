@@ -8,7 +8,7 @@ public class Dog extends Pets{
         this.location = location;
         this.kind = "dog";
         this.id = id;
-        Animal.idCounter++;
+        Animal.idCounter=id+1;
     }
 
 }

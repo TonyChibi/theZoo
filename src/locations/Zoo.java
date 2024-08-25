@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 public class Zoo extends Location {
 
+
 String name = "zoo";
     public HashMap<String,Vault> vaults;
     public Zoo(ILocatable location, String name){
@@ -35,12 +36,14 @@ String name = "zoo";
 
     @Override
     public void setOptions() {
-
+    this.options = new ArrayList<>(this.vaults.keySet());
+    this.options.add("exit");
     }
 
     @Override
     public ArrayList getOptions() {
-        return null;
+        setOptions();
+        return this.options;
     }
 
     @Override

@@ -25,9 +25,7 @@ public class MySQL {
     }
 
 
-    public void setAnimals(Animal animal){
 
-    }
     public ArrayList<HashMap> getAnimals(String conditions) throws SQLException{
         Map types = Map.ofEntries(
                 entry(1,"pets"),
@@ -142,8 +140,8 @@ public class MySQL {
         st.executeUpdate(query);
     }
 
-    public void updateCommand(String table, String command, String value, String conditions) throws SQLException{
-        String query= "update\t"+table+"\t set "+command+"\t = "+value+"\t"+conditions+";";
+    public void updateCommand(String command, String value, String conditions) throws SQLException{
+        String query= "update\tcommands_sets\t set `"+command+"` = "+value+"\t"+conditions+";";
         Statement st = con.createStatement();
         st.executeUpdate(query);
 

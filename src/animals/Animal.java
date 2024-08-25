@@ -12,8 +12,8 @@ import java.util.Set;
 
 
 public abstract class Animal implements IAnimal, ILocatable{
-    public static int idCounter=1;
-    public int id;
+    public static Integer idCounter=1;
+    public Integer id;
 
     public String name;
     public Integer weight;
@@ -22,6 +22,7 @@ public abstract class Animal implements IAnimal, ILocatable{
 
     public HashMap <String, Command> commands = new HashMap<>();
     public String kind;
+     public ArrayList<String> options = new ArrayList<>();
 
     public abstract String getType();
 
@@ -52,12 +53,14 @@ public abstract class Animal implements IAnimal, ILocatable{
 
     @Override
     public void setOptions() {
-
+        this.options = new ArrayList<>(this.commands.keySet());
+        this.options.addAll(Arrays.asList("learn", "kill", "back"));
     }
 
     @Override
     public ArrayList<String> getOptions() {
-        return (ArrayList<String>) this.commands.keySet();
+        setOptions();
+        return this.options;
     }
 
     @Override
